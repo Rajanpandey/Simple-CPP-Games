@@ -15,17 +15,6 @@ bool check_repetitions(std::vector<char> &vec){
     return 0;
 }
 
-/* Check if more than 4 digits are inserted by the user
-bool check_overflow(std::vector<char> &vec){
-    if(vec.size()>4){
-        std::cout<< "I said enter just FOUR digits! -_-\n\n";
-        vec.clear();
-        return 1;
-    }
-    return 0;
-}
-*/
-
 int main()
 {
     std::vector<char> vec1;
