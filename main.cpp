@@ -47,11 +47,7 @@ int main()
         for(auto i=0; i<4; i++){
             for(auto j=0; j<4; j++){
                 if(vec1[i]==vec2[j]){
-                    if(i==j){
-                        ++bulls;
-                    }else{
-                        ++cows;
-                    }
+                    i==j ? ++bulls : ++cows;
                 }
             }
         }
