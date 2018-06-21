@@ -11,6 +11,13 @@ void display_board(std::vector<char> &vec){
 }
 
 void update_board(int position, char character, std::vector<char> &vec){
+    char pos=48+position;
+    if(vec[position-1]!=pos){
+        std::cout << "\nPosition is already marked! ._.'\n";
+        std::cin >> position;
+        update_board(position, character, vec);
+        return;
+    }
     vec[position-1]=character;
     display_board(vec);
 }
