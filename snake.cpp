@@ -1,81 +1,178 @@
-#include<iostream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <conio.h>
+#include <windows.h>
+#include <time.h>
 
-void display_board(std::vector<char> &vec){
-    std::cout << "\n   " << vec[0] << " | " << vec[1] << " | " << vec[2] << " \n";
-    std::cout << "  -----------\n";
-    std::cout << "\n   " << vec[3] << " | " << vec[4] << " | " << vec[5] << " \n";
-    std::cout << "  -----------\n";
-    std::cout << "\n   " << vec[6] << " | " << vec[7] << " | " << vec[8] << " \n";
+bool gameover;
+char target=227;
+const auto width=20, height=20;
+
+int X, Y, targetX, targetY, score, ntail;
+int tailX[400], tailY[400];
+
+enum direction {STOP=0, LEFT, RIGHT, UP, DOWN};
+direction dir;
+
+void setup(){
+    gameover=false;
+    dir=STOP;
+    score=0;
+
+    X=width/2;
+    Y=height/2;
+    targetX=rand()%width;
+    targetY=rand()%height;
 }
 
-void update_board(int position, char character, std::vector<char> &vec){
-    vec[position-1]=character;
-    display_board(vec);
+void draw(){
+    system("cls"); //system("clear") on linux
+    std::cout << "Press X to quit at anytime.\n\n";
+    for(auto i=0; i<width+2; i++){
+        std::cout << "#";
+    }
+    std::cout << "\n";
+
+    for(auto i=0; i<height; i++){
+        for(auto j=0; j<width; j++){
+            if(j==0){
+                std::cout << "#";
+            }
+
+            if(i==Y && j==X){
+                std::cout << "O";
+            }else if(i==targetY && j==targetX){
+                std::cout << target;
+            }else{
+                bool print=false;
+                for(auto k=0; k<ntail; k++){
+                    if(tailX[k]==j && tailY[k]==i){
+                        std::cout << "o";
+                        print=true;
+                    }
+                }
+                if(!print){
+                    std::cout << " ";
+                }
+            }
+
+            if(j==width-1){
+                std::cout << "#";
+            }
+        }
+        std::cout << "\n";
+    }
+
+    for(auto i=0; i<width+2; i++){
+        std::cout << "#";
+    }
+    std::cout << "\nScore: " << score;
+}
+
+void input(){
+    if(_kbhit()){
+        switch(_getch()){
+            case 'w':
+                dir=UP;
+                break;
+
+            case 's':
+                dir=DOWN;
+                break;
+
+            case 'a':
+                dir=LEFT;
+                break;
+
+            case 'd':
+                dir=RIGHT;
+                break;
+
+            case 'x':
+                gameover=true;
+                break;
+        }
+    }
+}
+
+void logic(){
+    int previousX=tailX[0];
+    int previousY=tailY[0];
+    int previous2X, previous2Y;
+    tailX[0]=X;
+    tailY[0]=Y;
+
+    for(auto i=1; i<ntail; i++){
+        previous2X=tailX[i];
+        previous2Y=tailY[i];
+        tailX[i]=previousX;
+        tailY[i]=previousY;
+        previousX=previous2X;
+        previousY=previous2Y;
+    }
+
+    switch(dir){
+        case UP:
+            Y--;
+            break;
+
+        case DOWN:
+            Y++;
+            break;
+
+        case LEFT:
+            X--;
+            break;
+
+        case RIGHT:
+            X++;
+            break;
+
+        default:
+            break;
+    }
+
+    if(X>width-1 || X<0 || Y>height-1 || Y<0){
+        gameover=true;
+    }
+    /* Code for teleporting while walking through walls (needs to replace the if statement above)
+    if(X>=width){
+        X=0;
+    }else if(X<0){
+        X=width-1;
+    }
+    */
+
+    if(Y>=height){
+        Y=0;
+    }else if(Y<0){
+        Y=height-1;
+    }
+
+    for(auto i=0; i<ntail; i++){
+        if(tailX[i]==X && tailY[i]==Y){
+            gameover=true;
+        }
+    }
+
+    if(X==targetX && Y==targetY){
+        score++;
+        ntail++;
+        targetX=rand()%width;
+        targetY=rand()%height;
+    }
 }
 
 int main()
 {
-    std::vector<char> vec;
-    char character;
-    int position;
+    srand (time(NULL));
+    setup();
+    while(!gameover){
+        draw();
+        input();
+        logic();
+        Sleep(150); //sleep(10) on linux
+    }
+     std::cout << "\nGAME OVER! :(";
 
-    vec={'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-    display_board(vec);
-
-    std::cout << "\nChoose a character from O/X\n";
-    std::cin >> character;
-
-    do{
-        std::cout << "\nAt which position do you want to mark?\n";
-        std::cin >> position;
-
-        switch(position){
-        case 1:
-            update_board(position, character, vec);
-            break;
-
-        case 2:
-            update_board(position, character, vec);
-            break;
-
-        case 3:
-            update_board(position, character, vec);
-            break;
-
-        case 4:
-            update_board(position, character, vec);
-            break;
-
-        case 5:
-            update_board(position, character, vec);
-            break;
-
-        case 6:
-            update_board(position, character, vec);
-            break;
-
-        case 7:
-            update_board(position, character, vec);
-            break;
-
-        case 8:
-            update_board(position, character, vec);
-            break;
-
-        case 9:
-            update_board(position, character, vec);
-            break;
-
-        default:
-            std::cout << "\nThat position is not an option! -_-'\n";
-            break;
-        }
-    }while(true);
-
-
-
-    return 0;
+     return 0;
 }
