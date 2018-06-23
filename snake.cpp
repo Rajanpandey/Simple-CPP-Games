@@ -131,10 +131,11 @@ void logic(){
             break;
     }
 
+    //Below is the statement to kill the game when snake hits the boundary wall
     if(X>width-1 || X<0 || Y>height-1 || Y<0){
         gameover=true;
     }
-    /* Code for teleporting while walking through walls (needs to replace the if statement above)
+    /* Code for teleporting to the other side while walking through walls
     if(X>=width){
         X=0;
     }else if(X<0){
