@@ -182,8 +182,6 @@ int main()
         else{
             Sleep(12);
         }
-
-
     }
      std::cout << "\nGAME OVER! :(";
 
