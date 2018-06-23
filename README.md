@@ -5,5 +5,8 @@
 
 3. Tic Tac Toe (Human Player Vs Computer): A simple single player O-X game against computer. The computer always plays the first move. The player is given a choice to choose from O or X character. The Computer NEVER loses.
 
-4. Snake: Simple snake game with a size of 20x20. Consuming the targets increases the size of the snake by 1 block. The target is denoted by Pi and is randomly generated at different instance of time. Hitting yourself (possible if snake size is 5 or more) results in game over.
+4. Snake: Simple snake game with a size of 20x20. Consuming the targets increases the size of the snake by 1 block. The target is denoted by Pi and is randomly generated at different instance of time. The speed of the snake keeps increasing after the multiples of score of 5 until 25, then it becomes blazing fast and remains constant.
+
+Hitting yourself (possible if snake size is 5 or more) results in game over.
+
 Hitting the boundary wall results in game over as well. To disable it and teleport through the other side while hitting the wall, uncomment the conditional statements from line 137 to 143 and comment out the conditional statement from line 134 to 136.
