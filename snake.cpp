@@ -171,7 +171,7 @@ int main()
         draw();
         input();
         logic();
-        Sleep(150); //sleep(10) on linux
+        Sleep(150); //sleep(150) on linux
     }
      std::cout << "\nGAME OVER! :(";
 
