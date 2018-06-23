@@ -131,11 +131,10 @@ void logic(){
             break;
     }
 
-    //Below is the statement to kill the game when snake hits the boundary wall
     if(X>width-1 || X<0 || Y>height-1 || Y<0){
         gameover=true;
     }
-    /* Code for teleporting to the other side while walking through walls
+    /* Code for teleporting while walking through walls (needs to replace the if statement above)
     if(X>=width){
         X=0;
     }else if(X<0){
@@ -171,7 +170,20 @@ int main()
         draw();
         input();
         logic();
-        Sleep(150); //sleep(150) on linux
+        if(ntail<5){
+            Sleep(200); //sleep(200) on linux
+        }else if(ntail<10){
+            Sleep(100);
+        }else if(ntail<15){
+            Sleep(50);
+        }else if(ntail<20){
+            Sleep(25);
+        }
+        else{
+            Sleep(12);
+        }
+
+
     }
      std::cout << "\nGAME OVER! :(";
 
