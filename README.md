@@ -1,4 +1,5 @@
 # Simple games using C++
+
 1. Bulls and Cows: The user needs to guess a particular 4 letter word or a 4 digit number. He is continously informed about the number of letters guessed right but at wrong places, and the number of letters guessed at the right placed, until the correct string is guessed. Both letters and numbers are supported.
 
 2. Tic Tac Toe (Human Player vs Human Player): O-X game for 2 human players. Player 1 is assigned O and Player 2 is assigned X.
